@@ -1,4 +1,4 @@
-CREATE DATABASE accountdb;
+CREATE DATABASE acc_db;
 
 USE accountdb;
 
