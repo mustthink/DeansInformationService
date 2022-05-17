@@ -1,5 +1,3 @@
-USE dis_db;
-
 CREATE TABLE accounts (
                           id INT PRIMARY KEY CHECK (id > 0),
                           login VARCHAR (30) NOT NULL,
