@@ -71,6 +71,7 @@ export default {
     mounted(){
         if(this.$store.state.isLogged){
             this.$router.push('/')
+            alert('Вы уже вошли')
         }
     },
 }

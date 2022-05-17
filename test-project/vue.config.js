@@ -11,7 +11,8 @@ module.exports = {
         plugins: [
             new GoogleFontsPlugin({
                 fonts: [
-                    { family: "Poppins", variants: [ "500", "700" ] }
+                    { family: "Poppins", variants: [ "500", "700" ] },
+                    { family: "Roboto", variants: [ "500", "700" ] }
                 ]
             })
         ]

@@ -1,7 +1,10 @@
 <template>
     <div>
+        
         <div class="hero">
-            <img class='yoba' src="@/assets/yoba.gif" alt="yoba">
+            <!-- <pre class="ascii-art"></pre> -->
+            <!-- <img class='yoba' src="@/assets/yoba.gif" alt="yoba"> -->
+            <img class='nure' src="@/assets/nure.png" alt="yoba">
             <h1>Вы зашли на сайт деканата</h1>
             <h2>и вы знаете что нужно сделать ( ͡° ͜ʖ ͡°)</h2>
             <login-button class="login_btn"/>
@@ -28,8 +31,8 @@ export default {
 .hero{
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     align-items: center;
+    margin-top: 20vh;
 }
 
 h1{
@@ -53,9 +56,14 @@ h2{
     width: 40vh;
 }
 
+.nure{
+    width: 30vh;
+    margin-bottom: -35vh;
+}
+
 .ascii-art {
+    color: teal;
     font-family: monospace;
     white-space: pre;
-    height:120px;
 }
 </style>
