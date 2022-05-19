@@ -17,4 +17,9 @@ services:
     image: adminer
     restart: always
     ports:
+      - 8081:8080
+  web:
+    build: test-project
+    restart: always
+    ports:
       - 8080:8080
