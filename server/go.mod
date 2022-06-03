@@ -1,3 +1,3 @@
-module github.com/mustthink/DeansInformationService/server
+module server
 
 go 1.17
