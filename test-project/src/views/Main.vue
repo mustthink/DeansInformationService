@@ -1,7 +1,7 @@
 <template>
 <div>
     <navbar></navbar>
-    <h1 style="margin:50px; font-size: 1.5rem;">Hello this is main page</h1>
+    <h1 style="margin:50px; font-size: 1.5rem;">Сайт сломался :(</h1>
 </div>
 </template>
 
