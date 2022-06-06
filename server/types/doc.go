@@ -10,6 +10,60 @@ import (
 DAY MONTH YEAR NUMBER SURNAME FIRSTNAME MIDDLENAME GROUP, YEARSOFSTUDY FACULTY INFORMATION LDAY LMONTH LYEAR DEAN MANAGER
 */
 
+var keywords = []string{"DAY", "MONTH", "YEAR", "NUMBER", "SURNAME", "FIRSTNAME", "MIDDLENAME", "GROUP", "YEARSOFSTUDY", "FACULTY", "INFORMATION", "LDAY", "LMONTH", "LYEAR", "DEAN", "MANAGER"}
+
+func СreateDoc(info []string) map[string]string {
+	doc := map[string]string{}
+	for i, word := range keywords {
+		doc[word] = info[i]
+	}
+	return doc
+}
+
+func GenerateDoc(namefile string, doc map[string]string) {
+	f, err := ioutil.ReadFile("html/" + namefile + ".htm")
+	if err != nil {
+		panic(err)
+	}
+
+	file := string(f)
+	for _, word := range keywords {
+		file = strings.Replace(file, word, doc[word], 1)
+	}
+
+	nf, err := os.Create("html/temp.htm")
+	if err != nil {
+		panic(err)
+	}
+	nf.WriteString(file)
+	nf.Close()
+}
+
+func DeleteDoc() {
+	os.Remove("html/temp.htm")
+}
+
+/*
+type newdoc struct{
+	info = map[string]string{
+		"DAY": 0,
+		"MONTH": 0,
+		"YEAR": 0,
+		"NUMBER": 0,
+		"SURNAME": 0,
+		"FIRSTNAME": 0,
+		"MIDDLENAME": 0,
+		"GROUP":        GROUP,
+		"YEARSOFSTUDY": YEARSOFSTUDY,
+		"FACULTY":      FACULTY,
+		"INFORMATION":  INFORMATION,
+		"LDAY":         LDAY,
+		"LMONTH":       LMONTH,
+		"DEAN":         DEAN,
+		"MANAGER":      MANAGER}
+}
+}
+
 type doc struct {
 	DAY          uint8
 	MONTH        uint8
@@ -47,7 +101,11 @@ func newDoc(DAY uint8, MONTH uint8, YEAR uint8, NUMBER int, SURNAME string, FIRS
 		MANAGER:      MANAGER}
 }
 
-func (d doc) generateDoc(namefile string) {
+
+
+
+
+func generateDoc(namefile string) {
 	f, err := ioutil.ReadFile("html/" + namefile + ".htm")
 	if err != nil {
 		panic(err)
@@ -61,6 +119,4 @@ func (d doc) generateDoc(namefile string) {
 	nf.Close()
 }
 
-func (d doc) deleteDoc() {
-	os.Remove("html/temperary.htm")
-}
+*/
