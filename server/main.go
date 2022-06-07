@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"html/template"
 	"log"
 	"net/http"
@@ -28,6 +29,8 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	addr := flag.String("addr", "localhost:8081", "Сетевой адрес HTTP")
+	flag.Parse()
 
 	var info = []string{"17", "March", "03", "1341", "Netudykhata", "Mykola", "Serhiiovych", "KBIKS-20-4", "2", "KIY", "Something very interesting", "31", "May", "22", "Lyashenko I.B.", "Petrenko A.S."}
 	docx := types.СreateDoc(info)
@@ -36,10 +39,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", home)
 
-	types.DeleteDoc()
-
-	log.Println("Запуск веб-сервера на http://127.0.0.1:4000")
-	err := http.ListenAndServe(":4000", mux)
+	log.Printf("Запуск веб-сервера на %s", *addr)
+	err := http.ListenAndServe(*addr, mux)
 	log.Fatal(err)
-
 }
