@@ -2,44 +2,42 @@ package main
 
 import (
 	"flag"
-	"html/template"
 	"log"
 	"net/http"
+	"os"
+	"server/db"
+	"server/service"
 	"server/types"
 )
 
-func home(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
-
-	ts, err := template.ParseFiles("./html/temp.htm")
-	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
-		return
-	}
-
-	err = ts.Execute(w, nil)
-	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
-	}
-}
-
 func main() {
 	addr := flag.String("addr", "localhost:8081", "Сетевой адрес HTTP")
+	dsn := flag.String("dsn", "root:123456@/dis_db?parseTime=true", "Название MySQL источника данных")
 	flag.Parse()
 
 	var info = []string{"17", "March", "03", "1341", "Netudykhata", "Mykola", "Serhiiovych", "KBIKS-20-4", "2", "KIY", "Something very interesting", "31", "May", "22", "Lyashenko I.B.", "Petrenko A.S."}
 	docx := types.СreateDoc(info)
 	types.GenerateDoc("document", docx)
+	defer types.DeleteDoc()
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", home)
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-	log.Printf("Запуск веб-сервера на %s", *addr)
-	err := http.ListenAndServe(*addr, mux)
-	log.Fatal(err)
+	db, err := db.OpenDB(*dsn)
+	if err != nil {
+		errorLog.Fatal(err)
+	}
+	defer db.Close()
+
+	app := service.NewApplication(errorLog, infoLog, db)
+
+	srv := &http.Server{
+		Addr:     *addr,
+		ErrorLog: errorLog,
+		Handler:  app.Routes(),
+	}
+
+	app.InfoLog().Printf("Запуск веб-сервера на %s", *addr)
+	err = srv.ListenAndServe()
+	app.ErrorLog().Fatal(err)
 }

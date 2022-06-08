@@ -1,5 +1,5 @@
 CREATE TABLE accounts (
-                          id INT PRIMARY KEY CHECK (id > 0),
+                          id INT PRIMARY KEY AUTO_INCREMENT,
                           login VARCHAR (32) NOT NULL,
                           pass VARCHAR(32) NOT NULL DEFAULT 123456,
                           token VARCHAR(32) NOT NULL,
