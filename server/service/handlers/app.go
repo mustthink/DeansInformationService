@@ -1,4 +1,4 @@
-package service
+package handlers
 
 import (
 	"database/sql"
@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 	"runtime/debug"
-	"server/service/handlers"
+	"server/service/data"
 )
 
 type App interface {
@@ -17,14 +17,14 @@ type App interface {
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
-	students *handlers.StudentModel
+	students *data.StudentModel
 }
 
 func NewApplication(errorLog *log.Logger, infoLog *log.Logger, db *sql.DB) *application {
 	return &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
-		students: &handlers.StudentModel{DB: db},
+		students: &data.StudentModel{DB: db},
 	}
 }
 

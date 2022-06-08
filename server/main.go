@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 	"server/db"
-	"server/service"
+	"server/service/handlers"
 	"server/types"
 )
 
@@ -29,7 +29,7 @@ func main() {
 	}
 	defer db.Close()
 
-	app := service.NewApplication(errorLog, infoLog, db)
+	app := handlers.NewApplication(errorLog, infoLog, db)
 
 	srv := &http.Server{
 		Addr:     *addr,
