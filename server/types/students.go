@@ -1,7 +1,9 @@
 package types
 
+import "time"
+
 type groupinfo struct {
-	keygroup int
+	KEYgroup int
 	mentorid int
 	flow     int
 	numgr    int
@@ -9,7 +11,8 @@ type groupinfo struct {
 }
 
 type Student struct {
-	id    int
-	name  string
-	group groupinfo
+	ID      int
+	FIO     string
+	GROUP   groupinfo
+	EXPIRES time.Time
 }

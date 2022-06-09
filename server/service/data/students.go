@@ -2,14 +2,11 @@ package data
 
 import (
 	"database/sql"
+	"errors"
 	"server/types"
 )
 
-type StudentModel struct {
-	DB *sql.DB
-}
-
-func (m *StudentModel) Insert(fio string, keygroup, expires int) (int, error) {
+func (m *Service) InsertStudent(fio string, keygroup, expires int) (int, error) {
 
 	stmt := `INSERT INTO students (fio, keygroup, expires)
     VALUES(?, ?, DATE_ADD(CURDATE(), INTERVAL ? DAY))`
@@ -27,10 +24,27 @@ func (m *StudentModel) Insert(fio string, keygroup, expires int) (int, error) {
 	return int(id), nil
 }
 
-func (m *StudentModel) Get(id int) (*types.Student, error) {
-	return nil, nil
+func (m *Service) GetStudent(id int) (*types.Student, error) {
+
+	stmt := `SELECT id, fio, keygroup, expires FROM students
+    WHERE expires > CURRENT_DATE() AND id = ?`
+
+	row := m.DB.QueryRow(stmt, id)
+
+	s := &types.Student{}
+
+	err := row.Scan(&s.ID, &s.FIO, &s.GROUP.KEYgroup, &s.EXPIRES)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, types.ErrNoRecord
+		} else {
+			return nil, err
+		}
+	}
+
+	return s, nil
 }
 
-func (m *StudentModel) Latest() ([]*types.Student, error) {
+func (m *Service) LatestStudents() ([]*types.Student, error) {
 	return nil, nil
 }

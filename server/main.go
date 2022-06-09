@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"server/db"
+	"server/service/db"
 	"server/service/handlers"
 	"server/types"
 )

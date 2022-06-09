@@ -17,14 +17,14 @@ type App interface {
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
-	students *data.StudentModel
+	data     *data.Service
 }
 
 func NewApplication(errorLog *log.Logger, infoLog *log.Logger, db *sql.DB) *application {
 	return &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
-		students: &data.StudentModel{DB: db},
+		data:     &data.Service{DB: db},
 	}
 }
 
