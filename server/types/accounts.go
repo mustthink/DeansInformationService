@@ -2,21 +2,12 @@ package types
 
 import "errors"
 
-var ErrNoRecord = errors.New("account: подходящей записи не найдено")
+var ErrNoRecord = errors.New("account: подходящего аккаунта не найдено")
 
-type account struct {
+type Account struct {
 	id       int
 	login    string
 	password string
 	token    string
 	typeacc  uint8
 }
-
-/*func newAccount (nid int, nlog, npass string, ntype uint8){
-	return &account{
-		id: nid,
-		login: nlog,
-		password: npass,
-		typeacc: ntype
-	}
-}*/

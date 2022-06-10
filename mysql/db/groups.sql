@@ -1,5 +1,5 @@
 CREATE TABLE groupinfo (
-                        keygroup INT PRIMARY KEY CHECK (keygroup > 0),
+                        keygroup INT PRIMARY KEY AUTO_INCREMENT,
                         mentorid INT NOT NULL,
                         flow INT NOT NULL,
                         numgr INT NOT NULL,
