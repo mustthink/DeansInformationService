@@ -2,17 +2,33 @@
     <div class="navbar">
         <div class="navbar__text" @click="$router.push('/')">.dekkanat</div>
         <div class="navbar__btns">
+            <div v-if="isStudent">
+            <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Login Page</button>
+            <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Получение справок</button>
+            <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Преподаватели</button>
+            </div>
+            <div v-if="this.$store.state.isEducator">
             <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Login Page</button>
             <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Расписание</button>
+            <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Студенты</button>
+            </div>
+            <div v-if="isDean">
+            <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Login Page</button>
+            <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Просмотр заявок</button>
             <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Преподаватели</button>
-            <!-- <my-button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Login Page</my-button> -->
+            <button class='navbar__btn' @click="$router.push('/login')" style="margin-left: 20px">Группы</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-        
+    data(){
+    return{
+
+    } 
+    }
 }
 </script>
 

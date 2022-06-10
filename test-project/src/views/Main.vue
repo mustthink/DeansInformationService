@@ -1,7 +1,7 @@
 <template>
 <div>
     <navbar></navbar>
-    <h1 style="margin:50px; font-size: 1.5rem;">Сайт сломался :(</h1>
+    <h1 style="margin:50px; font-size: 1.5rem;">Сайт работает :)</h1>
 </div>
 </template>
 

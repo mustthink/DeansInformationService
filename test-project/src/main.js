@@ -6,11 +6,11 @@ import components from '@/components/UI'
 import Axios from 'axios'
 
 
-Vue.prototype.$http = Axios;
-const token = localStorage.getItem('token')
-if (token) {
-    Vue.prototype.$http.defaults.headers.common['Authorization'] = token
-}
+// Vue.prototype.$http = Axios;
+// const token = localStorage.getItem('token')
+// if (token) {
+//     Vue.prototype.$http.defaults.headers.common['Authorization'] = token
+// }
 
 const app = createApp(App)
 
