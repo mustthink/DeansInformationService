@@ -47,3 +47,16 @@ func (app *application) showStudent(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "%v", s)
 }
+
+func (app *application) showListStudents(w http.ResponseWriter, r *http.Request) {
+	s, err := app.data.LatestStudents()
+
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, student := range s {
+		fmt.Fprintf(w, "%v\n", student)
+	}
+}

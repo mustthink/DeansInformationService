@@ -46,5 +46,34 @@ func (m *Service) GetStudent(id int) (*types.Student, error) {
 }
 
 func (m *Service) LatestStudents() ([]*types.Student, error) {
-	return nil, nil
+
+	stmt := `SELECT id, fio, keygroup, expires FROM students
+    WHERE expires > CURDATE() ORDER BY id DESC LIMIT 10`
+
+	rows, err := m.DB.Query(stmt)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var students []*types.Student
+
+	for rows.Next() {
+
+		s := &types.Student{}
+
+		err = rows.Scan(&s.ID, &s.FIO, &s.GROUP.KEYgroup, &s.EXPIRES)
+		if err != nil {
+			return nil, err
+		}
+
+		students = append(students, s)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return students, nil
 }
