@@ -1,7 +1,7 @@
 package data
 
 import (
-	"server/types"
+	"server/service/types"
 )
 
 func (m *Service) InsertAccount(title, content, expires string) (int, error) {

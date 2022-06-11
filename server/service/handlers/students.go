@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"server/types"
+	"server/service/types"
 	"strconv"
 )
 
@@ -29,6 +29,11 @@ func (app *application) createStudent(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) showStudent(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.Header().Set("Allow", http.MethodGet)
+		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	}
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
@@ -49,6 +54,11 @@ func (app *application) showStudent(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) showListStudents(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.Header().Set("Allow", http.MethodGet)
+		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	}
 	s, err := app.data.LatestStudents()
 
 	if err != nil {

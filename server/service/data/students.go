@@ -3,7 +3,7 @@ package data
 import (
 	"database/sql"
 	"errors"
-	"server/types"
+	types2 "server/service/types"
 )
 
 func (m *Service) InsertStudent(fio string, keygroup, expires int) (int, error) {
@@ -24,19 +24,19 @@ func (m *Service) InsertStudent(fio string, keygroup, expires int) (int, error) 
 	return int(id), nil
 }
 
-func (m *Service) GetStudent(id int) (*types.Student, error) {
+func (m *Service) GetStudent(id int) (*types2.Student, error) {
 
 	stmt := `SELECT id, fio, keygroup, expires FROM students
     WHERE expires > CURRENT_DATE() AND id = ?`
 
 	row := m.DB.QueryRow(stmt, id)
 
-	s := &types.Student{}
+	s := &types2.Student{}
 
 	err := row.Scan(&s.ID, &s.FIO, &s.GROUP.KEYgroup, &s.EXPIRES)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, types.ErrNoRecord
+			return nil, types2.ErrNoRecord
 		} else {
 			return nil, err
 		}
@@ -45,7 +45,7 @@ func (m *Service) GetStudent(id int) (*types.Student, error) {
 	return s, nil
 }
 
-func (m *Service) LatestStudents() ([]*types.Student, error) {
+func (m *Service) LatestStudents() ([]*types2.Student, error) {
 
 	stmt := `SELECT id, fio, keygroup, expires FROM students
     WHERE expires > CURDATE() ORDER BY id DESC LIMIT 10`
@@ -57,11 +57,11 @@ func (m *Service) LatestStudents() ([]*types.Student, error) {
 
 	defer rows.Close()
 
-	var students []*types.Student
+	var students []*types2.Student
 
 	for rows.Next() {
 
-		s := &types.Student{}
+		s := &types2.Student{}
 
 		err = rows.Scan(&s.ID, &s.FIO, &s.GROUP.KEYgroup, &s.EXPIRES)
 		if err != nil {
