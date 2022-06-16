@@ -1,7 +1,7 @@
 package types
 
 type Mentor struct {
-	id    int
-	fio   string
-	chair string
+	ID    int
+	FIO   string
+	CHAIR string
 }
