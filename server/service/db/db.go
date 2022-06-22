@@ -13,5 +13,9 @@ func OpenDB(dsn string) (*sql.DB, error) {
 	if err = db.Ping(); err != nil {
 		return nil, err
 	}
+
+	db.SetMaxOpenConns(100)
+	db.SetMaxIdleConns(5)
+
 	return db, nil
 }

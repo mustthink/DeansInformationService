@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"server/types"
+	"server/service/types"
 	"strconv"
 )
 
@@ -19,16 +19,20 @@ func (app *application) createStudent(w http.ResponseWriter, r *http.Request) {
 	fio := "Netudykhata Mykola Serhiyovych"
 	expires := 155
 
-	id, err := app.data.InsertStudent(fio, keygroup, expires)
+	err := app.data.InsertStudent(fio, keygroup, expires)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	http.Redirect(w, r, fmt.Sprintf("/student?id=%d", id), http.StatusSeeOther)
 }
 
 func (app *application) showStudent(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.Header().Set("Allow", http.MethodGet)
+		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	}
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
@@ -46,4 +50,22 @@ func (app *application) showStudent(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "%v", s)
+}
+
+func (app *application) showListStudents(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.Header().Set("Allow", http.MethodGet)
+		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	}
+	s, err := app.data.LatestStudents()
+
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, student := range s {
+		fmt.Fprintf(w, "%v\n", student)
+	}
 }
