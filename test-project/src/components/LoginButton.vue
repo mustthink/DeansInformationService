@@ -51,9 +51,10 @@ export default {
                 password:this.user.password,
             }
             console.log(newUser)
-            // let result = await axios.post('', newUser);
-            let result = 201;
-            if (result == 201){
+            // let result = await axios.post(`localhost:8081/student/create?${newUser}`, newUser);
+            // console.log(result)
+            // let result = 201;
+            if (result == 200){
                 this.$store.commit('setLogged');
             }
             }
