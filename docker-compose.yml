@@ -4,7 +4,9 @@ services:
 
   db:
     build: mysql
+    container_name: dis_db
     command: --default-authentication-plugin=mysql_native_password
+    hostname: "mysql"
     restart: always
     environment:
       MYSQL_DATABASE: dis_db
@@ -13,17 +15,36 @@ services:
       MYSQL_PASSWORD: pass
     ports:
       - 3306:3306
-  adminer:
-    image: adminer
-    restart: always
+    networks:
+      default:
+        ipv4_address: 172.16.1.3
+  server:
+    container_name: dis_server
+    build: server
+    hostname: "server"
     ports:
-      - 8082:8080
+      - 8081:8081
+    restart:
+      always
+    networks:
+      default:
+        ipv4_address: 172.16.1.4
   web:
     build: test-project
+    container_name: dis_web
+    hostname: "dis"
     restart: always
     ports:
       - 8080:8080
-  server:
-    build: server
-    ports:
-      - 8081:8081
+    links:
+      - server
+    networks:
+      default:
+        ipv4_address: 172.16.1.5
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.1.0/24

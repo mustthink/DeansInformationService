@@ -19,13 +19,12 @@ func (app *application) createStudent(w http.ResponseWriter, r *http.Request) {
 	fio := "Netudykhata Mykola Serhiyovych"
 	expires := 155
 
-	id, err := app.data.InsertStudent(fio, keygroup, expires)
+	err := app.data.InsertStudent(fio, keygroup, expires)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	http.Redirect(w, r, fmt.Sprintf("/student?id=%d", id), http.StatusSeeOther)
 }
 
 func (app *application) showStudent(w http.ResponseWriter, r *http.Request) {

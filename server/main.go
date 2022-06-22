@@ -11,7 +11,7 @@ import (
 
 func main() {
 	addr := flag.String("addr", "localhost:8081", "Сетевой адрес HTTP")
-	dsn := flag.String("dsn", "root:123456@/dis_db?parseTime=true", "Название MySQL источника данных")
+	dsn := flag.String("dsn", "root:123456@tcp(127.0.0.1:3306)/dis_db?parseTime=true", "Название MySQL источника данных")
 	flag.Parse()
 
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)

@@ -6,22 +6,17 @@ import (
 	"server/service/types"
 )
 
-func (m *Service) InsertStudent(fio string, keygroup, expires int) (int, error) {
+func (m *Service) InsertStudent(fio string, keygroup, expires int) error {
 
 	stmt := `INSERT INTO students (fio, keygroup, expires)
     VALUES(?, ?, DATE_ADD(CURDATE(), INTERVAL ? DAY))`
 
-	result, err := m.DB.Exec(stmt, fio, keygroup, expires)
+	_, err := m.DB.Exec(stmt, fio, keygroup, expires)
 	if err != nil {
-		return 0, err
+		return err
 	}
 
-	id, err := result.LastInsertId()
-	if err != nil {
-		return 0, err
-	}
-
-	return int(id), nil
+	return nil
 }
 
 func (m *Service) GetStudent(id int) (*types.Student, error) {
