@@ -19,7 +19,7 @@ func (app *application) createNews(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url := *app.url + "/news/temp.json"
+	url := *app.url + "/temp.json"
 	var netClient = http.Client{
 		Timeout: time.Second * 10,
 	}
