@@ -37,6 +37,7 @@ export default {
             },
             dialogVisible: false,
             valid: true,
+            baseUrl: process.env.VUE_APP_BASE_URL,
         }
     },
     methods:{
@@ -51,10 +52,10 @@ export default {
                 password:this.user.password,
             }
             console.log(newUser)
-            // let result = await axios.post(`localhost:8081/student/create?${newUser}`, newUser);
-            // console.log(result)
+            let result = await axios.post(`https://reqres.in/api/articles`, newUser);
+            console.log(result.status)
             // let result = 201;
-            if (result == 200){
+            if (result.status == 201){
                 this.$store.commit('setLogged');
             }
             }

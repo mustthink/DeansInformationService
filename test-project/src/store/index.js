@@ -3,7 +3,7 @@ import { createStore } from "vuex"
 export default createStore({
    
     state:{
-        isLogged: true, //потом обяpательно поменять обратно на false
+        isLogged: false, //если стоит true, то потом обяpательно поменять обратно на false
         //(изменил временно чтобы не ебаться каждый раз)
         isStudent: true,
         isEducator: false,
