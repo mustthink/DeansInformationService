@@ -12,6 +12,7 @@ import (
 func main() {
 	addr := flag.String("addr", "localhost:8081", "Сетевой адрес HTTP")
 	dsn := flag.String("dsn", "root:123456@tcp(127.0.0.1:3306)/dis_db?parseTime=true", "Название MySQL источника данных")
+	url := flag.String("url", "localhost:8080", "URL Web сайта")
 	flag.Parse()
 
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -23,7 +24,7 @@ func main() {
 	}
 	defer db.Close()
 
-	app := handlers.NewApplication(errorLog, infoLog, db)
+	app := handlers.NewApplication(errorLog, infoLog, db, url)
 
 	srv := &http.Server{
 		Addr:     *addr,

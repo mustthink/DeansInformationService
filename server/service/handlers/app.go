@@ -18,13 +18,15 @@ type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
 	data     *data.Service
+	url      *string
 }
 
-func NewApplication(errorLog *log.Logger, infoLog *log.Logger, db *sql.DB) *application {
+func NewApplication(errorLog *log.Logger, infoLog *log.Logger, db *sql.DB, url *string) *application {
 	return &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
 		data:     &data.Service{DB: db},
+		url:      url,
 	}
 }
 
