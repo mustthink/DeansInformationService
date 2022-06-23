@@ -19,13 +19,7 @@ func (app *application) createNews(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	namefile := r.URL.Query().Get("namefile")
-	if namefile == "" {
-		app.notFound(w)
-		return
-	}
-
-	url := "http://localhost:8081"
+	url := *app.url + "/news/temp.json"
 	var netClient = http.Client{
 		Timeout: time.Second * 10,
 	}
