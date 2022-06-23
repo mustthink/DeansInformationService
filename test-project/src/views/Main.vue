@@ -2,40 +2,60 @@
 <div>
     <navbar></navbar>
     <!-- <h1 style="margin:50px; font-size: 1.5rem;">Сайт работает :)</h1> -->
+    <!-- <button @click="fetchNews">Обновить список новостей</button> -->
     <news-list v-bind:news="news"/>
+    <!-- <button @click="WriteJson">Записать и перейти</button> -->
 </div>
 </template>
 
 <script>
 import Navbar from "@/components/UI/Navbar.vue";
 import NewsList from "@/components/NewsList.vue";
+import axios from "axios";
+// import { json } from "body-parser";
 export default {
     components: { Navbar, NewsList},
     data(){
         return{
-            news:[
-                {id: 1, title: "Переменные", body: `Можно объявить при помощи:\n
-                - let\n
-                - const (константа, т.е. изменению не подлежит)\n
-                - var (устаревший способ, подробности позже)\n
-                Имя переменной может включать:\n
-                Буквы и цифры, однако цифра не может быть первым символом.\n
-                Символы $ и _ используются наряду с буквами.\n
-                Иероглифы и символы нелатинского алфавита также допустимы, но обычно не используются.\n
-                Переменные типизируются динамически. В них могут храниться любые значения:\n`},
-                {id: 1, title: "Худшая неделя в жизни Илона Маска", body: `Его империи откровенно плохо, 
-                а сам миллиардер переключается с одного скандала на другой. У Tesla медийно всё особенно плохо 
-                — многолетнее восхищение стартапом резко меняется в критическую сторону. `},
-                {id: 1, title: "Bloomberg считает", body: `что к 2024 году Tesla потеряет корону главного производителя 
-                электромобилей. Их главный конкурент, Volkswagen, мощно наращивает продажи в Европе и Китае. 
-                А Tesla застряла в США. `},
-            ]
+            news:[]
         }
+    },
+    methods:{
+        WriteJson(){
+            // const fs = require('fs');
+
+            const user = {
+            "id": 1,
+            "name": "John Doe",
+            "age": 22
+            };
+
+            const data = JSON.stringify(user);
+
+            fs.writeFile('user.json', data, (err) => {
+            if (err) {
+                throw err;
+            }
+            console.log("JSON data is saved.");
+            });
+        },
+
+        async fetchNews(){
+            try {
+                const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5');
+                this.news = response.data;
+            } catch (error) {
+                alert('Произошла чудовищная ошибка: ', error)
+            }
+        },
+
+
     },
     mounted() {
         if (this.$store.state.isLogged == false) {
             this.$router.push("/login");
         }
+        this.fetchNews();
     },
    
 }
