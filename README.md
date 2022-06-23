@@ -15,5 +15,6 @@
 >>8) HOPE THAT THE PROJECT WILL WORK 
 >### If there are any errors
 >>clear the images and volumes of the service and try to run it again:
->> 1. ` docker rmi $(docker images -q)`
->> 2. `docker volume rm $(docker volume ls -q)`
+>> 1. Stop all DIS containers 
+>> 2. ` docker rmi $(docker images -q)`
+>> 3. `docker volume rm $(docker volume ls -q)`
