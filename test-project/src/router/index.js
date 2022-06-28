@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from '@/views/Main'
 import LoginPage from '@/views/LoginPage'
-// import news from '@/public/news'
+import AddNewsForm from '@/views/AddNewsForm'
+import News from '@/assets/News'
 
 const routes = [
   {
@@ -14,11 +15,16 @@ const routes = [
     name: 'login',
     component: LoginPage
   },
-  // {
-  //   path: '/news',
-  //   name: 'news',
-  //   component: news
-  // },
+  {
+    path: '/addnews',
+    name: 'addnews',
+    component: AddNewsForm
+  },
+  {
+    path: '/news',
+    name: 'news',
+    component: News
+  },
   
 ]
 

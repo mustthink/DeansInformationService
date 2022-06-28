@@ -8,6 +8,10 @@ export default createStore({
         isStudent: true,
         isEducator: false,
         isDean: false,
+        news:{
+            title: ``,
+            body: ``,
+        }
     },
     getters:{
         
@@ -25,6 +29,12 @@ export default createStore({
         setDean(state){
             state.isDean = true;
         },
+        setArticle(state, title){
+            state.news.title = title;
+        },
+        setBody(state, body){
+            state.news.body = body;
+        }
     },
     actions:{
 

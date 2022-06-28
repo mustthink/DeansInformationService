@@ -1,15 +1,17 @@
 <template>
     <div>
     <h2 class="news_article">Последние новости:</h2>
-    <div class="news" v-for="thing in news">
-        <div>{{ thing.title }}</div>
-        <div>{{ thing.body }}</div>
-    </div>
+    <NewsItem
+    v-for="onenew in news" 
+    :onenew="onenew"
+    />
   </div>
 </template>
 
 <script>
+import NewsItem from "./NewsItem.vue";
 export default {
+    components: { NewsItem },
     props: {
         news: {
             type: Array,
@@ -20,14 +22,6 @@ export default {
 </script>
 
 <style scoped>
-.news{
-    padding: 15px;
-    border: 2px solid teal;
-    margin-top: 15px;
-    margin-left: 15px;
-    display: grid;
-    width: 40vw;
-}
 
 .news_article{
     margin: 15px;

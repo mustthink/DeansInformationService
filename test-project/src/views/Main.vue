@@ -1,10 +1,10 @@
 <template>
 <div>
     <navbar></navbar>
-    <!-- <h1 style="margin:50px; font-size: 1.5rem;">Сайт работает :)</h1> -->
-    <!-- <button @click="fetchNews">Обновить список новостей</button> -->
-    <news-list v-bind:news="news"/>
-    <!-- <button @click="WriteJson">Записать и перейти</button> -->
+    <button @click="$router.push('/addnews')">Создать пост</button>
+    <news-list 
+    :news="news"
+    />
 </div>
 </template>
 
@@ -12,7 +12,6 @@
 import Navbar from "@/components/UI/Navbar.vue";
 import NewsList from "@/components/NewsList.vue";
 import axios from "axios";
-// import { json } from "body-parser";
 export default {
     components: { Navbar, NewsList},
     data(){
