@@ -5,7 +5,7 @@ export default createStore({
     state:{
         isLogged: false, //если стоит true, то потом обяpательно поменять обратно на false
         //(изменил временно чтобы не ебаться каждый раз)
-        isStudent: true,
+        isStudent: false,
         isEducator: false,
         isDean: false,
         news:{
@@ -34,7 +34,10 @@ export default createStore({
         },
         setBody(state, body){
             state.news.body = body;
-        }
+        },
+        setNotDean(state){
+            state.isDean = false;
+        },
     },
     actions:{
 

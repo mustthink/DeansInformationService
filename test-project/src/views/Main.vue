@@ -1,7 +1,8 @@
 <template>
 <div>
     <navbar></navbar>
-    <button @click="$router.push('/addnews')">Создать пост</button>
+    <!-- <my-button style='margin-top: 30px; margin-left: 30px;' @click="$router.push('/addnews')">Создать пост</my-button> -->
+    <my-button class="testBtns" @click="setDean()">Set Dean</my-button>
     <news-list 
     :news="news"
     />
@@ -20,33 +21,25 @@ export default {
         }
     },
     methods:{
-        WriteJson(){
-            // const fs = require('fs');
-
-            const user = {
-            "id": 1,
-            "name": "John Doe",
-            "age": 22
-            };
-
-            const data = JSON.stringify(user);
-
-            fs.writeFile('user.json', data, (err) => {
-            if (err) {
-                throw err;
-            }
-            console.log("JSON data is saved.");
-            });
-        },
-
         async fetchNews(){
             try {
-                const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5');
+                const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=7');
                 this.news = response.data;
             } catch (error) {
                 alert('Произошла чудовищная ошибка: ', error)
             }
         },
+        setDean(){
+            if(this.$store.state.isDean == false){
+                this.$store.commit('setDean');
+                console.log('Worked')
+            }
+            else{
+                this.$store.commit('setNotDean');
+                console.log('Worked too')
+            }
+            
+        }
 
 
     },
@@ -61,5 +54,10 @@ export default {
 </script>
 
 <style scoped>
-
+.testBtns{
+    position:absolute;
+   top:90;
+   right:0;
+   background-color: white;
+}
 </style>

@@ -46,9 +46,11 @@
                 }
                 this.$store.commit('setArticle',newNews.title);
                 this.$store.commit('setBody',newNews.body);
-                console.log(newNews)
-                // let result = await axios.post(`https://reqres.in/api/articles`, newUser);
-                // console.log(result.status)   
+                axios.post(`172.16.1.4:8081/news/create`, {
+                    title: newNews.title,
+                    body: newNews.body,
+                });
+
             }
         }
         }

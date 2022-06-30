@@ -1,7 +1,11 @@
 <template>
     <div class="news">
+      <div v-if="this.$store.state.isDean" class="id">Id: {{onenew.id}}</div>
       <div class="title">{{ onenew.title }}</div>
       <div>{{ onenew.body }}</div>
+      <div v-if="this.$store.state.isDean" class="btn">
+        <my-button @click="remove">Удалить</my-button>
+      </div>
     </div>
 </template>
 
@@ -11,6 +15,14 @@
           onenew: {
             type: Object,
             required: true,
+          }
+        },
+        methods:{
+          remove(){
+            (async () => {
+              // DELETE request using axios with async/await
+              await axios.delete(`https://reqres.in/api/posts/${onenew.id}`);
+            })();
           }
         }
       }
@@ -25,6 +37,15 @@
     display: grid;
     width: 40vw;
 }
+
+.btn{
+  margin-top: 6px;
+}
+
+/* .btn:hover{
+  margin-top: 6px;
+  color:aquamarine
+} */
 
 .title{
    font-weight: 100; 
