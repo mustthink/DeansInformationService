@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	addr := flag.String("addr", "localhost:8081", "Сетевой адрес HTTP")
+	addr := flag.String("addr", "172.16.1.4:8081", "Сетевой адрес HTTP")
 	dsn := flag.String("dsn", "root:123456@tcp(127.0.0.1:3306)/dis_db?parseTime=true", "Название MySQL источника данных")
 	url := flag.String("url", "http://localhost:8080", "URL Web сайта")
 	flag.Parse()
