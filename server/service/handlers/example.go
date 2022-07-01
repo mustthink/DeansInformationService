@@ -15,7 +15,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	//docx := types.СreateDoc(info)
 	//types.GenerateDoc("document", docx)
 	//defer types.DeleteDoc()
-
+	w.Header().Set("Content-Type", "application/json")
 	ts, err := template.ParseFiles("./html/test.json")
 	if err != nil {
 		app.serverError(w, err)

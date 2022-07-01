@@ -18,7 +18,6 @@ func (app *application) createNews(w http.ResponseWriter, r *http.Request) {
 		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
-
 	url := *app.url + "/temp.json"
 	var netClient = http.Client{
 		Timeout: time.Second * 10,
@@ -58,6 +57,7 @@ func (app *application) showNews(w http.ResponseWriter, r *http.Request) {
 		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
+	w.Header().Set("Content-Type", "application/json")
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
@@ -88,6 +88,7 @@ func (app *application) showListNews(w http.ResponseWriter, r *http.Request) {
 		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
+	w.Header().Set("Content-Type", "application/json")
 	s, err := app.data.LatestNews()
 
 	if err != nil {
