@@ -18,6 +18,11 @@ services:
     networks:
       default:
         ipv4_address: 172.16.1.3
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080       
   server:
     container_name: dis_server
     build: server
