@@ -13,7 +13,7 @@ import (
 )
 
 func (app *application) createNews(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
+	app.enableCors(&w)
 	if r.Method != http.MethodPost {
 		w.Header().Set("Allow", http.MethodPost)
 		app.clientError(w, http.StatusMethodNotAllowed)
@@ -53,7 +53,7 @@ func (app *application) createNews(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) showNews(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
+	app.enableCors(&w)
 	if r.Method != http.MethodGet {
 		w.Header().Set("Allow", http.MethodGet)
 		app.clientError(w, http.StatusMethodNotAllowed)
@@ -85,7 +85,7 @@ func (app *application) showNews(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) showListNews(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
+	app.enableCors(&w)
 	if r.Method != http.MethodGet {
 		w.Header().Set("Allow", http.MethodGet)
 		app.clientError(w, http.StatusMethodNotAllowed)
