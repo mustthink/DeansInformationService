@@ -21,23 +21,23 @@ export default {
         }
     },
     methods:{
-        // async 
-        // fetchNews(){
+        async fetchNews(){
+            try {
+                const response = await axios.get('http://localhost:8081/news/list'); //await axios
+                // this.news = response.data;
+                console.log(response)
+            } catch (error) {
+                alert('Произошла чудовищная ошибка: ', error)
+            }
+        },
+        // async fetchNews(){
         //     try {
-        //         const response = axios.get('http://172.16.1.4:8081/news/list'); //await axios
+        //         const response = await fetch('http://172.16.1.4:8081/news/list');
         //         this.news = response.data;
         //     } catch (error) {
         //         alert('Произошла чудовищная ошибка: ', error)
         //     }
         // },
-        async fetchNews(){
-            try {
-                const response = await fetch('http://172.16.1.4:8081/news/list');
-                this.news = response.data;
-            } catch (error) {
-                alert('Произошла чудовищная ошибка: ', error)
-            }
-        },
         setDean(){
             if(this.$store.state.isDean == false){
                 this.$store.commit('setDean');
