@@ -23,8 +23,8 @@ export default {
     methods:{
         async fetchNews(){
             try {
-                const response = await axios.get('http://localhost:8081/news/list'); //await axios
-                // this.news = response.data;
+                const response = await axios.get('http://localhost:8081/news/list'); 
+                this.news = response.data;
                 console.log(response)
             } catch (error) {
                 alert('Произошла чудовищная ошибка: ', error)

@@ -1,8 +1,8 @@
 <template>
     <div class="news">
       <div v-if="this.$store.state.isDean" class="id">Id: {{onenew.id}}</div>
-      <div class="title">{{ onenew.title }}</div>
-      <div>{{ onenew.body }}</div>
+      <div class="title">{{ onenew.Title }}</div>
+      <div>{{ onenew.Content }}</div>
       <div v-if="this.$store.state.isDean" class="btn">
         <my-button @click="remove">Удалить</my-button>
       </div>
