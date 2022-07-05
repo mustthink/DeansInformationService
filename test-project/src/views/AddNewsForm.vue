@@ -45,11 +45,11 @@
                     body:this.PeaceOfNews.body,
                 }
                 // this.$store.commit('setArticle',newNews.title);
-                // this.$store.commit('setBody',newNews.body);
-                axios.post(`http://localhost:8081/news/create`, {
-                    Title: newNews.title,
-                    Content: newNews.body,
-                });
+                // this.$store.commit('setBody',newNews.body);              
+                // Title: newNews.title,
+                // Content: newNews.body,
+                let data = JSON.stringify(newNews)
+                axios.post(`http://localhost:8081/news/create`, data);
 
             }
         }
