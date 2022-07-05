@@ -23,7 +23,7 @@ export default {
     methods:{
         async fetchNews(){
             try {
-                const response = await axios.get('http://172.16.1.4:8081/news/list');
+                const response = await axios.get('http://localhost:8081/news/list');
                 this.news = response.data;
                 console.log(response)
             } catch (error) {

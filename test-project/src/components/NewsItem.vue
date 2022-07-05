@@ -1,6 +1,6 @@
 <template>
     <div class="news">
-      <div v-if="this.$store.state.isDean" class="id">Id: {{onenew.id}}</div>
+      <div v-if="this.$store.state.isDean" class="id">Id: {{onenew.ID}}</div>
       <div class="title">{{ onenew.Title }}</div>
       <div>{{ onenew.Content }}</div>
       <div v-if="this.$store.state.isDean" class="btn">
