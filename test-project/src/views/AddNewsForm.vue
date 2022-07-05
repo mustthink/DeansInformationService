@@ -25,7 +25,7 @@
 </template>
 
 <script>
-
+    import axios from "axios";
     export default {
 
         data(){
@@ -44,11 +44,11 @@
                     title: this.PeaceOfNews.title,
                     body:this.PeaceOfNews.body,
                 }
-                this.$store.commit('setArticle',newNews.title);
-                this.$store.commit('setBody',newNews.body);
-                axios.post(`172.16.1.4:8081/news/create`, {
-                    title: newNews.title,
-                    body: newNews.body,
+                // this.$store.commit('setArticle',newNews.title);
+                // this.$store.commit('setBody',newNews.body);
+                axios.post(`http://localhost:8081/news/create`, {
+                    Title: newNews.title,
+                    Content: newNews.body,
                 });
 
             }
