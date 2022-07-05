@@ -5,7 +5,8 @@
     <NewsItem
     v-for="onenew in news" 
     :onenew="onenew"
-    :key="onenew.id"
+    :key="onenew.ID"
+    @remove="$emit('remove',onenew)"
     />
   </div>
 </template>

@@ -5,6 +5,7 @@
     <my-button class="testBtns" @click="setDean()">Set Dean</my-button>
     <news-list 
     :news="news"
+    @remove="removeNews"
     />
 </div>
 </template>
@@ -30,14 +31,16 @@ export default {
                 alert('Произошла чудовищная ошибка: ', error)
             }
         },
-        // async fetchNews(){
-        //     try {
-        //         const response = await fetch('http://172.16.1.4:8081/news/list');
-        //         this.news = response.data;
-        //     } catch (error) {
-        //         alert('Произошла чудовищная ошибка: ', error)
-        //     }
-        // },
+        removeNews(onenew){
+            // axios.delete(`http://localhost:8081/news/delete?id=${onenew.ID}`)
+            //альтернативный вид запроса (сверху)
+            axios.delete(`http://localhost:8081/news/delete`,{ 
+                params: { 
+                    id: onenew.ID 
+                } 
+            }) 
+            setTimeout(fetchNews(), 3000);
+        },
         setDean(){
             if(this.$store.state.isDean == false){
                 this.$store.commit('setDean');

@@ -4,7 +4,7 @@
       <div class="title">{{ onenew.Title }}</div>
       <div>{{ onenew.Content }}</div>
       <div v-if="this.$store.state.isDean" class="btn">
-        <my-button @click="remove">Удалить</my-button>
+        <my-button @click="$emit('remove',onenew)">Удалить</my-button>
       </div>
     </div>
 </template>
