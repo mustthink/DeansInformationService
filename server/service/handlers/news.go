@@ -4,12 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"server/service/types"
 	"strconv"
-	"time"
 )
 
 func (app *application) createNews(w http.ResponseWriter, r *http.Request) {
@@ -19,32 +17,14 @@ func (app *application) createNews(w http.ResponseWriter, r *http.Request) {
 		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
-	url := *app.url + "/temp.json"
-	var netClient = http.Client{
-		Timeout: time.Second * 10,
-	}
-
-	res, err := netClient.Get(url)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer res.Body.Close()
-
-	body, err := ioutil.ReadAll(res.Body)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	news := &types.News{}
-
-	jsonErr := json.Unmarshal(body, news)
+	var nw types.News
+	jsonErr := json.NewDecoder(r.Body).Decode(&nw)
 
 	if jsonErr != nil {
 		app.serverError(w, jsonErr)
 	}
 
-	err = app.data.InsertNews(news)
+	err := app.data.InsertNews(&nw)
 	if err != nil {
 		app.serverError(w, err)
 		return
