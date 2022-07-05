@@ -40,9 +40,8 @@
             CreateNews(){
             if(this.PeaceOfNews.title.length > 0 && this.PeaceOfNews.body.length > 0){
                 const newNews = {
-                    id: Date.now(),
                     title: this.PeaceOfNews.title,
-                    body:this.PeaceOfNews.body,
+                    content:this.PeaceOfNews.body,
                 }
                 // this.$store.commit('setArticle',newNews.title);
                 // this.$store.commit('setBody',newNews.body);              
