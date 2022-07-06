@@ -86,3 +86,28 @@ func (app *application) showListNews(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "%v", string(json_data))
 }
+
+func (app *application) deleteNews(w http.ResponseWriter, r *http.Request) {
+	app.enableCors(&w)
+	if r.Method != http.MethodDelete {
+		w.Header().Set("Allow", http.MethodDelete)
+		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+	if err != nil || id < 1 {
+		app.notFound(w)
+		return
+	}
+
+	err = app.data.DeleteNews(id)
+	if err != nil {
+		if errors.Is(err, types.ErrNoRecord) {
+			app.notFound(w)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+}

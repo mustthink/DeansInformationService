@@ -78,3 +78,15 @@ func (m *Service) LatestNews() ([]*types.News, error) {
 
 	return news, nil
 }
+
+func (m *Service) DeleteNews(id int) error {
+
+	stmt := `DELETE FROM news
+    WHERE id = ?`
+
+	_, err := m.DB.Exec(stmt, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}

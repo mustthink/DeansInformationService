@@ -13,6 +13,7 @@ func (app *application) Routes() *http.ServeMux {
 	mux.HandleFunc("/news", app.showNews)
 	mux.HandleFunc("/news/create", app.createNews)
 	mux.HandleFunc("/news/list", app.showListNews)
+	mux.HandleFunc("/news/delete", app.deleteNews)
 
 	return mux
 }
