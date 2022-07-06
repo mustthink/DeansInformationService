@@ -44,11 +44,11 @@ export default {
         setDean(){
             if(this.$store.state.isDean == false){
                 this.$store.commit('setDean');
-                console.log('Worked')
+                console.log("Dean's mode is done")
             }
             else{
                 this.$store.commit('setNotDean');
-                console.log('Worked too')
+                console.log("Dean's mode is undone")
             }
             
         }
