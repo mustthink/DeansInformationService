@@ -8,6 +8,5 @@ type Account struct {
 	id       int
 	login    string
 	password string
-	token    string
 	typeacc  uint8
 }

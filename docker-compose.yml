@@ -41,7 +41,6 @@ services:
     restart: always
     ports:
       - 80:80
-      - 8080:8080
     links:
       - server
     networks:
