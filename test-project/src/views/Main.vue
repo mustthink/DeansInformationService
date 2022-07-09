@@ -41,6 +41,7 @@ export default {
             }) 
             fetchNews();
             // setTimeout(fetchNews(), 3000);
+            // privet
         },
         setDean(){
             if(this.$store.state.isDean == false){
