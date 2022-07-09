@@ -39,7 +39,8 @@ export default {
                     id: onenew.ID 
                 } 
             }) 
-            setTimeout(fetchNews(), 3000);
+            fetchNews();
+            // setTimeout(fetchNews(), 3000);
         },
         setDean(){
             if(this.$store.state.isDean == false){
