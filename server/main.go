@@ -17,6 +17,7 @@ func main() {
 
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	secret := "secret"
 
 	db, err := db.OpenDB(*dsn)
 	if err != nil {
@@ -24,7 +25,7 @@ func main() {
 	}
 	defer db.Close()
 
-	app := handlers.NewApplication(errorLog, infoLog, db, url)
+	app := handlers.NewApplication(errorLog, infoLog, db, url, secret)
 
 	srv := &http.Server{
 		Addr:     *addr,

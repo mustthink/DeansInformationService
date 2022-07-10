@@ -1,33 +1,64 @@
 package types
 
-/*
-import "encoding/json"
+import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/base64"
+	"encoding/json"
+	"strings"
+	"time"
+)
 
-func Header(c string){
-	return alg(type+alg+c)
+type header struct {
+	Typ string `json:"type"`
+	Alg string `json:"alg"`
 }
 
 type claims struct {
-	Sub    string `json:"sub"`
-	Iat    int    `json:"iat"`
-	Exp    int    `json:"exp"`			 // header.alg(json.Marshal(claims))	string
-	Role   string `json:"role"`
-	UserId string `json:"user_id"`
+	Name    string    `json:"name"`
+	Created time.Time `json:"iat"`
+	Expired time.Time `json:"exp"`
+	Role    int       `json:"role"`
+	UserId  int       `json:"user_id"`
 }
 
-type signature struct {
-	hc string //hash(header + claims, key)
-}
-//															header.claims.sing -> server -> h + c -> newsing ?? sing
-type JWT struct {
-	hc string
-	s signature
+func BaseToUrl(s string) string {
+	s = strings.ReplaceAll(s, "+", "-")
+	s = strings.ReplaceAll(s, "/", "_")
+	return strings.ReplaceAll(s, "=", "%")
 }
 
-func testJWT(){
-	j := &JWT{
-		c: claims{},
-		s: signature{},
+func UrlToBase(s string) string {
+	s = strings.ReplaceAll(s, "-", "+")
+	s = strings.ReplaceAll(s, "_", "/")
+	return strings.ReplaceAll(s, "%", "=")
+}
+
+func GenerateJWT(a Account, secret string) (string, error) {
+	key := []byte(secret)
+	hs := hmac.New(sha256.New, key)
+
+	h, err := json.Marshal(&header{
+		Typ: "JWT",
+		Alg: "HS256",
+	})
+	if err != nil {
+		return "", err
 	}
+
+	c, err := json.Marshal(&claims{
+		Name:    a.Login,
+		Created: time.Now(),
+		Expired: time.Now().Add(time.Hour),
+		Role:    a.Typeacc,
+		UserId:  a.Id,
+	})
+	if err != nil {
+		return "", err
+	}
+
+	hc := base64.StdEncoding.EncodeToString(h) + "." + base64.StdEncoding.EncodeToString(c)
+	hs.Write([]byte(hc))
+	t := hc + "." + base64.StdEncoding.EncodeToString(hs.Sum(nil))
+	return BaseToUrl(t), nil
 }
-*/

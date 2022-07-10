@@ -5,8 +5,8 @@ import "errors"
 var ErrNoRecord = errors.New("account: подходящего аккаунта не найдено")
 
 type Account struct {
-	id       int
-	login    string
-	password string
-	typeacc  uint8
+	Id       int
+	Login    string
+	Password string
+	Typeacc  int
 }

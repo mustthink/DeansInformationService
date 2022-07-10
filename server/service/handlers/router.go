@@ -14,5 +14,6 @@ func (app *application) Routes() *http.ServeMux {
 	mux.HandleFunc("/news/create", app.createNews)
 	mux.HandleFunc("/news/list", app.showListNews)
 	mux.HandleFunc("/news/delete", app.deleteNews)
+	mux.HandleFunc("/login", app.NewAuthorization)
 	return mux
 }

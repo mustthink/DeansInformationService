@@ -3,5 +3,6 @@ package data
 import "database/sql"
 
 type Service struct {
-	DB *sql.DB
+	DB     *sql.DB
+	Secret string
 }

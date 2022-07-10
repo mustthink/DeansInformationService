@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"server/service/types"
 	"strconv"
@@ -58,7 +57,7 @@ func (app *application) showNews(w http.ResponseWriter, r *http.Request) {
 
 	json_data, err := json.MarshalIndent(s, "", "    ")
 	if err != nil {
-		log.Fatal(err)
+		app.errorLog.Println(err)
 	}
 
 	fmt.Fprintf(w, "%v", string(json_data))
@@ -89,8 +88,8 @@ func (app *application) showListNews(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) deleteNews(w http.ResponseWriter, r *http.Request) {
 	app.enableCors(&w)
-	if r.Method != http.MethodDelete {
-		w.Header().Set("Allow", http.MethodDelete)
+	if r.Method != http.MethodDelete && r.Method != http.MethodOptions {
+		w.Header().Set("Allow", http.MethodDelete+" or "+http.MethodOptions)
 		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
