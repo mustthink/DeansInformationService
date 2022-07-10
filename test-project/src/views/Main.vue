@@ -32,12 +32,14 @@ export default {
             }
         },
         removeNews(onenew){
+
             // axios.delete(`http://localhost:8081/news/delete?id=${onenew.ID}`)
             //альтернативный вид запроса (сверху)
             axios.delete(`http://localhost:8081/news/delete`,{ 
                 params: { 
                     id: onenew.ID 
-                } 
+                },
+                // headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
             }) 
             fetchNews();
             // setTimeout(fetchNews(), 3000);
