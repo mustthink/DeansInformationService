@@ -33,6 +33,7 @@
                 PeaceOfNews: {
                     title:'',
                     body:'',
+                    //test sync
                 }
             }
         },
