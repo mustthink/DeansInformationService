@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"server/service/types"
+	"server/internal/types"
 )
 
 func (app *application) NewAuthorization(w http.ResponseWriter, r *http.Request) {
@@ -16,14 +16,12 @@ func (app *application) NewAuthorization(w http.ResponseWriter, r *http.Request)
 	}
 	w.Header().Set("Content-Type", "application/json")
 	var acc types.Account
-	/*jsonErr := json.NewDecoder(r.Body).Decode(&acc)
 
+	jsonErr := json.NewDecoder(r.Body).Decode(&acc)
 	if jsonErr != nil {
 		app.serverError(w, jsonErr)
 	}
-	*/
-	acc.Login = "user"
-	acc.Password = "123456"
+
 	res, err := app.data.NewAuth(&acc)
 	if err != nil {
 		app.serverError(w, err)

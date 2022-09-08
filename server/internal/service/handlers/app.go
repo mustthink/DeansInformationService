@@ -3,16 +3,13 @@ package handlers
 import (
 	"database/sql"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"runtime/debug"
-	"server/service/data"
+	"server/internal/service/requests"
+	"server/pkg/testJWT"
 )
-
-type App interface {
-	home(w http.ResponseWriter, r *http.Request)
-	Routes() *http.ServeMux
-}
 
 type application struct {
 	errorLog *log.Logger
@@ -54,6 +51,22 @@ func (app *application) clientError(w http.ResponseWriter, status int) {
 
 func (app *application) notFound(w http.ResponseWriter) {
 	app.clientError(w, http.StatusNotFound)
+}
+
+func (app *application) checkJWT(w *http.ResponseWriter, r *http.Request) bool {
+	t := r.Header.Get("token")
+	if len(t) == 0 {
+		return false
+	}
+	return testJWT.VerificationJWT(t, app.data.Secret)
+}
+
+func (app *application) idFromT(w *http.ResponseWriter, r *http.Request) (int, int) {
+	t, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		app.serverError(*w, err)
+	}
+	return testJWT.InfoFromJWT(string(t))
 }
 
 func (app *application) enableCors(w *http.ResponseWriter) {

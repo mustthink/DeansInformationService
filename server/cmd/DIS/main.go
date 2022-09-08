@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"server/service/db"
-	"server/service/handlers"
+	"server/internal/db"
+	"server/internal/service/handlers"
 )
 
 func main() {

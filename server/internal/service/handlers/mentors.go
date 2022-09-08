@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"server/service/types"
+	"server/internal/types"
 	"strconv"
 )
 

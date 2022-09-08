@@ -3,7 +3,8 @@ package data
 import (
 	"database/sql"
 	"errors"
-	"server/service/types"
+	"server/internal/types"
+	"server/pkg/testJWT"
 )
 
 type NewLog struct {
@@ -27,7 +28,7 @@ func (m *Service) NewAuth(acc *types.Account) (NewLog, error) {
 		}
 	}
 	if acc.Password == exac.Password {
-		token, err := types.GenerateJWT(*exac, m.Secret)
+		token, err := testJWT.GenerateJWT(*exac, m.Secret)
 		if err != nil {
 			return *l, err
 		} else {
@@ -41,7 +42,8 @@ func (m *Service) NewAuth(acc *types.Account) (NewLog, error) {
 
 }
 
-func (m *Service) GetAccount(id int) (*types.Account, error) {
+func (m *Service) GetMyAcc(id int) (*types.Account, error) {
+
 	return nil, nil
 }
 

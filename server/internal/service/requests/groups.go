@@ -1,7 +1,7 @@
 package data
 
 import (
-	"server/service/types"
+	"server/internal/types"
 )
 
 func (m *Service) InsertGroup(title, content, expires string) (int, error) {

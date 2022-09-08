@@ -3,7 +3,7 @@ package data
 import (
 	"database/sql"
 	"errors"
-	"server/service/types"
+	"server/internal/types"
 )
 
 func (m *Service) InsertStudent(fio string, keygroup, expires int) error {

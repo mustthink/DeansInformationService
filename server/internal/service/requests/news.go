@@ -3,7 +3,7 @@ package data
 import (
 	"database/sql"
 	"errors"
-	"server/service/types"
+	"server/internal/types"
 	"time"
 )
 

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"server/service/types"
+	"server/internal/types"
 	"strconv"
 )
 
@@ -14,6 +14,10 @@ func (app *application) createNews(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		w.Header().Set("Allow", http.MethodPost)
 		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	} else if !app.checkJWT(&w, r) {
+		w.Header().Set("JWT auth", "failed")
+		app.clientError(w, http.StatusUnauthorized)
 		return
 	}
 	var nw types.News
@@ -36,6 +40,10 @@ func (app *application) showNews(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		w.Header().Set("Allow", http.MethodGet)
 		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	} else if !app.checkJWT(&w, r) {
+		w.Header().Set("JWT auth", "failed")
+		app.clientError(w, http.StatusUnauthorized)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
@@ -69,6 +77,10 @@ func (app *application) showListNews(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Allow", http.MethodGet)
 		app.clientError(w, http.StatusMethodNotAllowed)
 		return
+	} else if !app.checkJWT(&w, r) {
+		w.Header().Set("JWT auth", "failed")
+		app.clientError(w, http.StatusUnauthorized)
+		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	s, err := app.data.LatestNews()
@@ -91,6 +103,10 @@ func (app *application) deleteNews(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodDelete && r.Method != http.MethodOptions {
 		w.Header().Set("Allow", http.MethodDelete+" or "+http.MethodOptions)
 		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	} else if !app.checkJWT(&w, r) {
+		w.Header().Set("JWT auth", "failed")
+		app.clientError(w, http.StatusUnauthorized)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
