@@ -25,7 +25,7 @@ services:
       - 8082:8080       
   server:
     container_name: dis_server
-    build: server1
+    build: server
     hostname: "server"
     ports:
       - 8081:8081
